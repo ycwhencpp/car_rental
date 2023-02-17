@@ -1,6 +1,7 @@
 <?php
 session_start(); // Start the session
-require('config.php'); // Include the database connection file
+require_once 'db.php'; // estblishing the conection.
+
 
 // Check if the form has been submitted
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
