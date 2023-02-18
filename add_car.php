@@ -36,15 +36,13 @@ if (isset($_POST['submit'])) {
 
     if(count($errors)==0){
 
-        if (isset($_POST['car_id'])) {
-            // Edit existing car
-            $car_id = mysqli_real_escape_string($conn,$_POST['car_id']);
-            $query="UPDATE cars SET model = ?, vehicle_number = ?, seating_capacity = ?, rent_per_day = ? ,image_url = ? WHERE id = ? AND agency_id = ?";
-        } else {
-            // Add new car
-            $agency_id = $_SESSION['user_id'];
+        $agency_id = $_SESSION['user_id'];
+        // Add new car
+        if(!$url){
+            $query = "INSERT INTO cars (model, vehicle_number, seating_capacity, rent_per_day, agency_id) VALUES (?, ?, ?, ?,?)";
+        }
+        else{
             $query = "INSERT INTO cars (model, vehicle_number, seating_capacity, rent_per_day,image_url, agency_id) VALUES (?, ?, ?, ?, ?,?)";
-        
         }
         
         // prepare statement 
@@ -52,11 +50,11 @@ if (isset($_POST['submit'])) {
         if (!$stmt) {
             die('Failed to prepare statement');
           }
-        
-        // Bind parameters
-        if (isset($_POST['car_id'])) {
-            mysqli_stmt_bind_param($stmt, 'ssddisi', $model, $vehicle_number, $seating_capacity, $rent_per_day, $car_id, $url,$agency_id);
-        } else {
+          
+        if(!$url){
+            mysqli_stmt_bind_param($stmt, 'ssddi', $model, $vehicle_number, $seating_capacity, $rent_per_day, $agency_id);
+        }
+        else{
             mysqli_stmt_bind_param($stmt, 'ssddsi', $model, $vehicle_number, $seating_capacity, $rent_per_day,$url, $agency_id);
         }
          // Execute statement
@@ -68,6 +66,7 @@ if (isset($_POST['submit'])) {
             // Error
             echo "Error:" . mysqli_error($conn);
         }
+    
 
     }
 }
@@ -106,7 +105,5 @@ if (isset($_POST['submit'])) {
     <?php } ?>
   </form>
 
-  <script type="text/javascript" src="script.js"></script>
 </body>
 </html>
-
