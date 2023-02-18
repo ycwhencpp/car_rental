@@ -11,7 +11,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
   $stmt->bind_param("s", $email);
   $stmt->execute();
   $result = $stmt->get_result();
-
+   
   if($result->num_rows==1)
   {
     $row=$result->fetch_assoc();
@@ -23,13 +23,19 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             {
                 session_start();
                 $_SESSION['email']=$email;
-                header('Location: customer_dashboard.php');
+                $_SESSION['user_id']=$row['id'];
+                $_SESSION['user_type']='customer';
+                session_write_close();
+                header('Location: index.php');
             }
             else
             {
                 session_start();
                 $_SESSION['email']=$email;
-                header('Location: agency_dashboard.php');
+                $_SESSION['user_id']=$row['id'];
+                $_SESSION['user_type']='agency';
+                session_write_close();
+                header('Location: index.php');
             }
       } 
       else{
