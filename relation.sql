@@ -16,6 +16,7 @@ CREATE TABLE cars (
   seating_capacity INT(11) NOT NULL,
   rent_per_day DECIMAL(10, 2) NOT NULL,
   agency_id INT(11) NOT NULL,
+  image_url varchar(255),
   PRIMARY KEY (id),
   FOREIGN KEY (agency_id) REFERENCES users(id)
 );
