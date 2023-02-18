@@ -53,7 +53,11 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
                 <td><?= htmlspecialchars($car['vehicle_number']) ?></td>
                 <td><?= htmlspecialchars($car['seating_capacity']) ?></td>
                 <td><?= htmlspecialchars($car['rent_per_day']) ?></td>
+                <?php if($user_type==='agency'): ?>
+                  <a href="edit_car.php?car_id=<?php echo $car['id'] ?>">Edit car Details</a>
+                <?php endif; ?>
               </tr>
+              
               <?php if ($user_type === 'customer'): ?>
                   <h2>Rent a Car</h2>
                   <form action="rent_car.php" method="post">
