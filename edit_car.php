@@ -18,6 +18,10 @@ if (!isset($_GET['car_id'])) {
 
 // Get the car information from the database
 $car_id = mysqli_real_escape_string($conn, $_GET['car_id']);
+if(!$car_id){
+  header('Location: index.php');
+  exit();
+}
 $agency_id = mysqli_real_escape_string($conn, $_SESSION['user_id']);
 $query = "SELECT * FROM cars WHERE id = $car_id AND agency_id = $agency_id";
 $result = mysqli_query($conn, $query);
@@ -27,6 +31,7 @@ if (!$result || mysqli_num_rows($result) == 0) {
   header('Location: index.php');
   exit();
 }
+
 
 $car = mysqli_fetch_assoc($result);
 

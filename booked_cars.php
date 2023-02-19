@@ -13,10 +13,11 @@ $errors = array();
 $agency_id = $_SESSION['user_id'];
 // Query to select all the bookings for the cars owned by the agency
 
-$query = "SELECT *
-FROM bookings
-JOIN cars ON bookings.car_id = cars.id
+$query = "SELECT cars.*, bookings.*
+FROM cars
+INNER JOIN bookings ON cars.id = bookings.car_id
 WHERE cars.agency_id = $agency_id";
+
 
 $resultAll = mysqli_query($conn, $query);
 if (!$resultAll || mysqli_num_rows($resultAll) == 0) {
@@ -24,11 +25,11 @@ if (!$resultAll || mysqli_num_rows($resultAll) == 0) {
   echo "<p> No carks booked yet </p>";
   exit();
 }
-$bookedcars=mysqli_fetch_assoc($resultAll);
+
 
 //close the db connection
-
 $conn->close();
+
 
 ?>
 <!DOCTYPE html>
@@ -41,18 +42,17 @@ $conn->close();
   <body>
     <div class="container">
       <h1>View Booked Cars</h1>
-      <div id="booked-cars">
-      <?php foreach( $bookedcars as $booking): ?>
-            <a href="booked_cars_info.php?carid=<?php echo $booking['car_id'] ?>">
-                <div class="cars">
-                    <p><?php echo $booking['id']; ?></p>
-                    <p><?php echo $booking['customer_id']; ?></p>
-                    <p><?php echo $booking['car_id']; ?></p>
-                    <img src="<?php echo $booking['image_url']; ?>" alt="car_image">
-                </div> 
-            </a>  
-      <?php endforeach;  ?>
-      </div>
+      <?php
+        while ($booking = $resultAll->fetch_assoc()) {
+          echo '<div class="booked-car">';
+          echo '<a href="booked_cars_info.php?carid=' . $booking['car_id'] . '">';
+          echo '<div class="car-details">';
+          echo '<p>' . $booking['model'] . '</p>';
+          echo '<p>' . $booking['start_date'] . '</p>';
+          echo '<img src="' . $booking['image_url'] . '" alt="car_image">';
+          echo '</div></a></div>';
+        }
+      ?>
     </div>
   </body>
 </html>
