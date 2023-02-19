@@ -50,31 +50,108 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
 <!DOCTYPE html>
 <html>
-   <head>
+
+      
+<head>
       <title>Login Page</title>
-      <link href="style.css" rel="stylesheet" type="text/css">
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
+    <?php include('css.php');?>
    </head>
-   <body>
-      <div id="frm">
-         <h2>Login</h2>
-         <form action="" method="POST">
-            <p>
-               <label>Email:</label>
-               <input type="text" name="email" required>
-            </p>
-            <p>
-               <label>Password:</label>
-               <input type="password" name="password" required>
-            </p>
-            <p>
-               <input type="submit" name="submit" value="Login">
-            </p>
-            <?php if(!empty($error)){ ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $error; ?>
-            </div>
-            <?php } ?>
-         </form>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" >
+
+         
+<div class="site-wrap" id="home-section" style="background-image: url('images/hero_1.jpg')">
+
+   <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
       </div>
-   </body>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+   </div>
+   <header class="site-navbar site-navbar-target" role="banner">
+
+      <div class="container">
+      <div class="row align-items-center position-relative">
+
+            <div class="col-3 ">
+            <div class="site-logo">
+               <a href="">Car Rental</a>
+            </div>
+            </div>
+
+            <div class="col-9  text-right">
+            
+
+            <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+
+            
+            <nav class="site-navigation text-right ml-auto d-none d-lg-block" role="navigation">
+              <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                <li class="active"><a href="index.php" class="nav-link">Home</a></li>
+                  <li><a href="login.php" class="nav-link">Login</a></li>
+                  <li><a href="register.php" class="nav-link">Register</a></li>
+              </ul>
+            </nav>
+         
+            </div>
+
+            
+      </div>
+      </div>
+
+   </header>
+
+<section class="vh-100">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col-12 col-md-8 col-lg-6 col-xl-5">
+        <div class="card shadow-2-strong" style="border-radius: 1rem;">
+          <div class="card-body p-5 text-center">
+
+            <h3 class="mb-5">Sign in</h3>
+
+            <form action="" method="post">
+
+            <div class="form-outline mb-4">
+              <input type="email" id="typeEmailX-2" class="form-control form-control-lg " name="email"  placeholder="email" required />
+              <!-- <label class="form-label" for="typeEmailX-2">Email</label> -->
+            </div>
+
+            <div class="form-outline mb-4">
+              <input type="password" id="typePasswordX-2" class="form-control form-control-lg" name="password" placeholder="password" required/>
+              <!-- <label class="form-label" for="typePasswordX-2">Password</label> -->
+            </div>
+
+
+            <input class="btn btn-primary btn-lg btn-block" type="submit" value="Log In">
+            </form>
+
+
+          </div>
+          <div class ="d-flex justify-content-center mb-4">
+              <p class="mb-0">Don't have an account? <a href="register.php" class="text-blue-50 fw-bold">Sign Up</a>
+              </p>
+            </div>
+          <?php if(!empty($error)){ ?>
+         <div class="alert alert-danger" role="alert">
+            <?php echo $error; ?>
+         </div>
+         <?php } ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+<?php include('footer.php'); ?>
+      </div>
+      <?php include ('scripts.php'); ?>
+      </body>
+
 </html>
+

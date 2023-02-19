@@ -5,6 +5,8 @@ if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'agency') {
   header('Location: login.php');
   exit();
 }
+$user_id=$_SESSION['user_id'];
+$user_type = $_SESSION['user_type'];
 
 // Connect to the database
 require_once 'db.php';
