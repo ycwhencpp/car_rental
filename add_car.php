@@ -10,7 +10,7 @@ $user_type = $_SESSION['user_type'];
 
 // Connect to the database
 require_once 'db.php';
-$errors ;
+$errors ="";
 // Handle form submission to add or edit cars
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $model =mysqli_real_escape_string($conn, $_POST['model']);

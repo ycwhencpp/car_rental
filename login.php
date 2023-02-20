@@ -1,5 +1,5 @@
 <?php
-session_start(); // Start the session
+
 require_once 'db.php'; // estblishing the conection.
 
 if($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -19,9 +19,10 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
     if(password_verify($password, $stored_password))
         {
+          session_start();
             if($row['type']=='customer')
             {
-                session_start();
+                
                 $_SESSION['email']=$email;
                 $_SESSION['user_id']=$row['id'];
                 $_SESSION['user_type']='customer';
@@ -30,7 +31,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             else
             {
-                session_start();
+                
                 $_SESSION['email']=$email;
                 $_SESSION['user_id']=$row['id'];
                 $_SESSION['user_type']='agency';
