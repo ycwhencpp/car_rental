@@ -14,6 +14,10 @@ if (!isset($_GET['car_id'])) {
 $user_id=$_SESSION['user_id'];
 $user_type = $_SESSION['user_type'];
 $car_id = mysqli_real_escape_string($conn,$_GET['car_id']);
+if(isset($_SESSION['msg'])){
+    $error =$_SESSION['msg'];
+    unset($_SESSION['msg']);
+}
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -23,17 +27,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $days = mysqli_real_escape_string($conn,$_POST['num_days']);
     $start_date =mysqli_real_escape_string($conn, $_POST['start_date']);
     $end_date = date('Y-m-d', strtotime($start_date . ' + ' . $days . ' days'));
-
-
-
-    $stmt = $conn->prepare( "INSERT INTO bookings (customer_id, car_id, start_date, end_date) VALUES (?,?,?,?)");
-    $stmt->bind_param("iiss", $customer_id, $car_id, $start_date, $end_date);
-    $stmt->execute();
-    if ($stmt->affected_rows > 0) {
-        echo "<p>Car rented successfully.</p>";
-    } else {
-        echo "<p>Error renting car: " . $stmt->error . "</p>";
+    if(strtotime($start_date)< strtotime(date('Y-m-d'))){
+        
+        $_SESSION['msg'] = "Starting date cant be less than Current date";
+        header("Location: rent_car.php?car_id=".$car_id);
     }
+    else{
+        $stmt = $conn->prepare( "INSERT INTO bookings (customer_id, car_id, start_date, end_date) VALUES (?,?,?,?)");
+        $stmt->bind_param("iiss", $customer_id, $car_id, $start_date, $end_date);
+        $stmt->execute();
+        if ($stmt->affected_rows > 0) {
+            $_SESSION['msg'] ="car rented succesfully";
+            header("Location: index.php");
+            
+        } else {
+            
+            $_SESSION['msg'] = $stmt->error;
+            header("Location: rent_car.php?car_id=".$car_id);
+        }
+    }
+    
 }
 else{
     $query = "SELECT * FROM cars WHERE id = $car_id";
@@ -107,6 +120,7 @@ else{
                 <div class="col-lg-5">
                     <div class="feature-car-rent-box-1">
                             <h3> <?php echo $car["model"] ?> </h3>
+                            <form action="" method="post">
                             <ul class="list-unstyled">
                                 <li>
                                     <span> Seats </span>
@@ -126,12 +140,12 @@ else{
                                         Rs: <?php echo $car['rent_per_day']?>/day
                                     </span>
                                 </li>
-                                <form action="rent_car.php" method ="post">
+                                
                                    <li>
                                     <span>Start Date</span>
 
                                     <span class ="spec">
-                                        <input type="date" id="start_date" name="start_date" required>
+                                        <input type="date"  id="start_date" name="start_date" required>
                                     </span>
                                 </li> 
                                    <li>
@@ -149,9 +163,13 @@ else{
                             </ul>         
                             <div class="d-flex align-items-center bg-light p-3">
                                 <span><input type="hidden" name="car_id" value="<?php echo $car['id'] ?>"></span>          
-                                <input type="submit" name="submit" value="Update Car" class= "ml-auto btn btn-primary">
+                                <input type="submit" name="submit" value="Rent Car" class= "ml-auto btn btn-primary">
                             </div>
-                    </form>
+                        </form>
+                    <?php if(!empty($error)){ ?>
+                    <div class="alert alert-danger d-flex justify-content-center align-items-center" role="alert">
+                    <?php echo $error; ?>
+                    <?php } ?>
                     </div>
                 </div>
                 </div>

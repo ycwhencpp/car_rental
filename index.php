@@ -3,15 +3,14 @@ session_start();
 // Establish a database connection
 require_once 'db.php';
 
-// Query to get all available cars
 
-if(isset($_GET['user_id'])){
+if(isset($_SESSION['user_id'])){
   $user_id=$_SESSION['user_id'];
 }
 else{
   $user_id=null;
 }
-if(isset($_GET['user_type'])){
+if(isset($_SESSION['user_type'])){
   $user_type = $_SESSION['user_type'];
 }
 else{
@@ -20,11 +19,11 @@ else{
 if(isset($_SESSION['email'])){
   $user_email = $_SESSION['email'];
 }
+if(isset($_SESSION['msg'])){
+  $error =$_SESSION['msg'];
+}
 
-
-
-
-
+unset($_SESSION['msg']);
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d', strtotime('+30 days'));
 
@@ -97,8 +96,12 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
 
         <div class="container">
           <div class="row align-items-center">
-            <div class="col-lg-5">
-
+            <div class="col align-self-center">
+            <?php if(!empty($error)){ ?>
+                  <div class="alert alert-success mt-2 d-flex justify-content-center align-items-center" role="alert">
+                <?php echo $error; ?>
+                  </div>
+                <?php } ?>
             </div>
           </div>
         </div>

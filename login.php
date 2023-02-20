@@ -115,7 +115,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 
             <h3 class="mb-5">Sign in</h3>
 
-            <form action="" method="post">
+            <form action="login.php" method="post">
 
             <div class="form-outline mb-4">
               <input type="email" id="typeEmailX-2" class="form-control form-control-lg " name="email"  placeholder="email" required />
@@ -138,9 +138,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
               </p>
             </div>
           <?php if(!empty($error)){ ?>
-         <div class="alert alert-danger" role="alert">
-            <?php echo $error; ?>
-         </div>
+            <div class="alert alert-danger d-flex justify-content-center align-items-center" role="alert">
+              
+              <?php echo $error; ?>
+              
+              
+              
          <?php } ?>
         </div>
       </div>
