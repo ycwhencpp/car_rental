@@ -6,13 +6,19 @@ if(isset($_GET['user-type'])){
 else{
     $redirected_type="";
 }
+
 if($_SERVER["REQUEST_METHOD"] == "POST"){
     // Fetch form data
     $name = mysqli_real_escape_string($conn, $_POST['name']);
-	$email = mysqli_real_escape_string($conn, $_POST['email']);
-	$password = mysqli_real_escape_string($conn, $_POST['password']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = mysqli_real_escape_string($conn, $_POST['password']);
     $type = mysqli_real_escape_string($conn,$_POST['type']);
 
+    if(!$name || $email || $password || $type){
+      $error = "Please provide details";
+      
+    }
+    else{
     // hash the password
     $password = password_hash($password, PASSWORD_DEFAULT);
     
@@ -28,8 +34,12 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
         exit;
     } else {
         // registration failed, display an error message
-        echo "Error: " . $stmt->error;
+        $error=  $stmt->error;
     }
+
+    }
+
+
 }
 ?>
 
@@ -101,7 +111,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
       <div class="row d-flex justify-content-center align-items-center h-100">
         <div class="col-12 col-md-9 col-lg-7 col-xl-6">
           <div class="card" style="border-radius: 15px;">
-            <div class="card-body p-5">
+            <div class="card-body px-5 pt-5 pb-1">
             <?php if($redirected_type): ?>
               <h2 class="text-uppercase text-center mb-5"> Agent Registration</h2>
             <?php else: ?>
@@ -116,40 +126,43 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email" placeholder="E-mail" />
+                  <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="email"  required placeholder="E-mail" />
                   
                 </div>
 
                 <div class="form-outline mb-4">
-                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="password" placeholder="Password" />
+                  <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="password"  required placeholder="Password" />
                   
                 </div>
-                <input type="hidden" name="type" value="agency">
-
-                <div class="d-flex justify-content-center">
-                <button class="btn btn-primary btn-lg btn-block" type="submit">Register</button>
-                </div>
-
                 <?php if($redirected_type): ?>
-                    <p class="text-center text-muted mt-5 mb-0">Are you a customer? <a href="register.php"
-                    class="fw-bold text-body"><u>register here</u></a></p>
-                    
+                  <input type="hidden" name="type" value="agency">
                 <?php else: ?>
-                    <p class="text-center text-muted mt-5 mb-0">Are you a Agent? <a href="register.php?user-type=agency"
-                    class="fw-bold text-body"><u>register here</u></a></p>
+                  <input type="hidden" name="type" value="customer">
                 <?php endif; ?>
                 
-                <p class="text-center text-muted mt-3 mb-0">Have already an account? <a href="login.php"
+
+                <div class="d-flex justify-content-center">
+                <input class="btn btn-primary btn-lg btn-block" type="submit" value="Register">
+                </div>
+                </form>
+                <?php if(!empty($error)){ ?>
+                  <div class="alert alert-danger mt-2 d-flex justify-content-center align-items-center" role="alert">
+                <?php echo $error; ?>
+                  </div>
+                <?php } ?>
+            </div>
+            
+            <?php if($redirected_type): ?>
+                    <p class="text-center text-muted mt-2 mb-0">Are you a customer? <a href="register.php"
+                    class="fw-bold text-body"><u>register here</u></a></p>
+                    
+            <?php else: ?>
+                    <p class="text-center text-muted mt-2 mb-0">Are you a Agent? <a href="register.php?user-type=agency"
+                    class="fw-bold text-body"><u>register here</u></a></p>
+             <?php endif; ?>
+                
+            <p class="text-center text-muted mt-2 mb-3">Have already an account? <a href="login.php"
                     class="fw-bold text-body"><u>Login here</u></a></p>
-
-              </form>
-              <?php if(!empty($error)){ ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $error; ?>
-            </div>
-        <?php } ?>
-
-            </div>
           </div>
         </div>
       </div>

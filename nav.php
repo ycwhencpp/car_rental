@@ -6,7 +6,7 @@
                   <li><a href="add_car.php" class="nav-link">AddCars</a></li>
                   <li><a href="booked_cars.php" class="nav-link">BookedCars</a></li>
                 <?php endif; ?>
-                <?php if($user_id): ?>
+                <?php if($user_id!=null): ?>
                 <li><a href="logout.php" class="nav-link">Logout</a></li>
                 <?php else: ?>
                 <li><a href="login.php" class="nav-link">Login</a></li>
