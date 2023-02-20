@@ -63,7 +63,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST") {
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300" >
 
          
-<div class="site-wrap" id="home-section" style="background-image: url('images/hero_1.jpg')">
+<div class="site-wrap" id="home-section" style="background-image: url('images/bg_1.jpg')">
 
    <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">

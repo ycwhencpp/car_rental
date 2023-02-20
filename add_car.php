@@ -10,9 +10,9 @@ $user_type = $_SESSION['user_type'];
 
 // Connect to the database
 require_once 'db.php';
-$errors = array();
+$errors ;
 // Handle form submission to add or edit cars
-if (isset($_POST['submit'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $model =mysqli_real_escape_string($conn, $_POST['model']);
     $vehicle_number =mysqli_real_escape_string($conn, $_POST['vehicle_number']);
     $seating_capacity =mysqli_real_escape_string($conn, $_POST['seating_capacity']);
@@ -22,21 +22,13 @@ if (isset($_POST['submit'])) {
     
     // Check for any validation errors
     
-    if (!$model) {
-        $errors[] = 'Please enter a vehicle model';
+    if (!$model || !$vehicle_number || !$seating_capacity  || !$rent_per_day) {
+        $errors = 'Please enter Full Details';
     }
-    if (!$vehicle_number) {
-        $errors[] = 'Please enter a vehicle number';
-    }
-    if (!$seating_capacity) {
-        $errors[] = 'Please enter a valid seating capacity';
-    }
-    if (!$rent_per_day) {
-        $errors[] = 'Please enter a valid rent per day';
-    }
+
     
 
-    if(count($errors)==0){
+    if(!$errors){
 
         $agency_id = $_SESSION['user_id'];
         // Add new car
@@ -66,47 +58,112 @@ if (isset($_POST['submit'])) {
             exit;
         } else {
             // Error
-            echo "Error:" . mysqli_error($conn);
+            $errors = mysqli_error($conn);
         }
     
 
     }
 }
 ?>
+
+
 <!DOCTYPE html>
 <html>
+
+      
 <head>
-  <title>Add New Car</title>
-  <link rel="stylesheet" type="text/css" href="style.css">
-</head>
-<body>
-  <h1>Add New Car</h1>
+      <title>Login Page</title>
+      <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <form method="post">
-    <label for="model">Vehicle model:</label>
-    <input type="text" id="model" name="model" required>
-
-    <label for="vehicle_number">Vehicle number:</label>
-    <input type="text" id="vehicle_number" name="vehicle_number" required>
-
-    <label for="seating_capacity">Seating capacity:</label>
-    <input type="number" id="seating_capacity" name="seating_capacity" required>
-
-    <label for="rent_per_day">Rent per day:</label>
-    <input type="number" step="0.01" id="rent_per_day" name="rent_per_day" required>
-
-    <label for="my-url-field">Enter a URL:</label>
-    <input type="url" id="my-url-field" name="url">
+    <link href="https://fonts.googleapis.com/css?family=DM+Sans:300,400,700&display=swap" rel="stylesheet">
+    <?php include('css.php');?>
 
 
-    <input type="submit" name="submit" value="Add Car">
-    <?php if(($errors)){ ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $errors[0]; ?>
+   </head>
+<body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
+
+         
+<div class="site-wrap" id="home-section" style="background-image: url('images/bg_1.jpg')">
+
+   <div class="site-mobile-menu site-navbar-target">
+      <div class="site-mobile-menu-header">
+      <div class="site-mobile-menu-close mt-3">
+            <span class="icon-close2 js-menu-toggle"></span>
+      </div>
+      </div>
+      <div class="site-mobile-menu-body"></div>
+   </div>
+   <header class="site-navbar site-navbar-target" role="banner" >
+
+      <div class="container">
+      <div class="row align-items-center position-relative">
+
+            <div class="col-3 ">
+            <div class="site-logo">
+               <a href="" style="color: black;">Car Rental</a>
             </div>
-    <?php } ?>
-  </form>
+            </div>
 
-</body>
+            <?php include('nav.php');?>
+
+   </header>
+
+   <section class="vh-100 bg-image">
+  <div class="mask d-flex align-items-center h-100 ">
+    <div class="container h-100">
+      <div class="row d-flex justify-content-center align-items-center h-100">
+        <div class="col-12 col-md-9 col-lg-7 col-xl-6">
+          <div class="card" style="border-radius: 15px;">
+            <div class="card-body px-5 pt-5 pb-1">
+
+              <h2 class="text-uppercase text-center mb-5"> ADD YOUR CAR</h2>
+
+              
+
+
+              <form action="" method="post">
+
+                <div class="form-outline mb-4">
+                <input type="text" id="form3Example1cg" class="form-control form-control-lg" name="model" placeholder="Enter Model Number"  required>
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="text" id="form3Example1cg" class="form-control form-control-lg" name="vehicle_number" placeholder="Enter Vehicle Number" required>
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="number" id="form3Example1cg" class="form-control form-control-lg" name="seating_capacity" placeholder="Enter Seating Capacity"  required>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="number" step="0.01" id="form3Example3cg" class="form-control form-control-lg" name="rent_per_day" placeholder="Enter Rent Per Day"  required>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="url"  id="form3Example4cg"  class="form-control form-control-lg" name="url" placeholder="Enter Image URL" >	
+                </div>
+
+                <div class="d-flex justify-content-center">
+                <input type="submit" value="Add car " class="btn btn-primary btn-lg btn-block">
+                </div>
+                </form>
+                <div class="mb-4"></div>
+                <?php if(!empty($errors)){ ?>
+                  <div class="alert alert-danger mt-2 d-flex justify-content-center align-items-center" role="alert">
+                <?php echo $errors; ?>
+                  </div>
+                <?php } ?>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+</section>
+
+   <?php include('footer.php'); ?>
+      </div>
+      <?php include ('scripts.php'); ?>
+      </body>
+
 </html>
-

@@ -54,7 +54,7 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
   </head>
 
   <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">    
-    <div class="site-wrap" id="home-section">
+    <div class="site-wrap" id="home-section" >
 
       <div class="site-mobile-menu site-navbar-target">
         <div class="site-mobile-menu-header">
@@ -66,21 +66,21 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
       </div>
 
 
-    <header class="site-navbar site-navbar-target" role="banner">
+    <header class="site-navbar site-navbar-target " role="banner" style="background-color: #e3f2fd;">
 
         <div class="container">
           <div class="row align-items-center position-relative">
 
             <div class="col-3 ">
               <div class="site-logo">
-                <a href="index.html">CarRent</a>
+                <a href="index.html" style="color: black;">CarRent</a>
               </div>
             </div>
 
             <div class="col-9  text-right">
               
 
-              <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
+              <span class="d-inline-block d-lg-none"><a href="index.php" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
 
               <?php include('nav.php'); ?>
           </div>
@@ -91,29 +91,14 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
 
 </header>
 
-    <div class="ftco-blocks-cover-1">
-      <div class="ftco-cover-1 overlay" style="background-image: url('images/hero_1.jpg')">
-
-        <div class="container">
-          <div class="row align-items-center">
-            <div class="col align-self-center">
-            <?php if(!empty($error)){ ?>
-                  <div class="alert alert-success mt-2 d-flex justify-content-center align-items-center" role="alert">
-                <?php echo $error; ?>
-                  </div>
-                <?php } ?>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+    
     <div class="site-section bg-light ">
       <!-- <div class="container"> -->
       <?php if(count($available_cars)!=0): ?>
         <?php if($user_type==='agency'): ?>
-          <h2 class =" d-flex  justify-content-center  mb-5 pb-2 ">Edit Cars</h2>
+          <h2 class =" d-flex  justify-content-center  mb-5 pb-2 ">EDIT CARS</h2>
         <?php else: ?>
-          <h2 class =" d-flex  justify-content-center  mb-5 pb-2 ">Rent Cars</h2>
+          <h2 class =" d-flex  justify-content-center  mb-5 pb-2 ">RENT CARS</h2>
         <?php endif; ?>
           <div class="container-fluid m-2  "> 
             <div class=" d-flex justify-content-around  align-content-between flex-wrap ">
@@ -130,7 +115,7 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
                           <span class="icon-star text-warning"></span>
                           <span class="icon-star text-warning"></span>
                         </div>
-                        <div class="rent-price"><span>Rs<?= htmlspecialchars($car['rent_per_day']) ?>/</span>day</div>
+                        <div class="rent-price"><span>₹<?= htmlspecialchars((int)$car['rent_per_day']) ?>/</span>day</div>
                         </div>
                         <ul class="specs">
                           <li>

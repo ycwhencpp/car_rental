@@ -137,7 +137,7 @@ else{
                                 <li>
                                     <span> Rent </span>
                                     <span class = "spec">
-                                        Rs: <?php echo $car['rent_per_day']?>/day
+                                    ₹ <?php echo (int) $car['rent_per_day']?>/day
                                     </span>
                                 </li>
                                 

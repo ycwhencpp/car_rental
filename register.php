@@ -62,7 +62,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 <body data-spy="scroll" data-target=".site-navbar-target" data-offset="300">
 
          
-<div class="site-wrap" id="home-section" style="background-image: url('images/hero_1.jpg')">
+<div class="site-wrap" id="home-section" style="background-image: url('images/bg_1.jpg')">
 
    <div class="site-mobile-menu site-navbar-target">
       <div class="site-mobile-menu-header">
@@ -216,55 +216,6 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
 
 
 
-
-
-
-
-
-
-
-
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Registration</title>
-</head>
-<body>
-    <h2>Register User</h2>
-    <form action="" method="post">
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="hidden" name="type" value="customer">
-        <input type="submit" value="Register">
-        <?php if(!empty($error)){ ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $error; ?>
-            </div>
-        <?php } ?>
-    </form>
-    
-    <h2>Register Agency</h2>
-    <form action="" method="post">
-        <label for="name">Company Name:</label>
-        <input type="text" id="name" name="name"><br><br>
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email"><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password"><br><br>
-        <input type="hidden" name="type" value="agency">
-        <input type="submit" value="Register">
-        <?php if(!empty($error)){ ?>
-            <div class="alert alert-danger" role="alert">
-              <?php echo $error; ?>
-            </div>
-        <?php } ?>
-    </form>
-</body>
-</html> -->
 
 
 

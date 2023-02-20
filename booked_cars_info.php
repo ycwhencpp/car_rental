@@ -73,9 +73,22 @@ $car_details = mysqli_fetch_assoc($car_result);
 
                     <span class="d-inline-block d-lg-none"><a href="#" class="text-white site-menu-toggle js-menu-toggle py-5 text-white"><span class="icon-menu h3 text-white"></span></a></span>
 
-                    
-
-                    <?php include('nav.php'); ?>
+                    <nav class="site-navigation text-right ml-auto d-none d-lg-block " role="navigation">
+              <ul class="site-menu main-menu js-clone-nav ml-auto ">
+                
+                <li class="active" ><a href="index.php" class="nav-link" >Home</a></li>
+                <?php if($user_type==='agency'): ?>
+                  <li><a href="add_car.php" class="nav-link" >AddCars</a></li>
+                  <li><a href="booked_cars.php" class="nav-link" >BookedCars</a></li>
+                <?php endif; ?>
+                <?php if($user_id!=null): ?>
+                <li><a href="logout.php" class="nav-link" >Logout</a></li>
+                <?php else: ?>
+                <li><a href="login.php" class="nav-link" >Login</a></li>
+                <li><a href="register.php" class="nav-link" >Register</a></li>
+                <?php endif; ?>
+              </ul>
+            </nav>
                     </div>
 
                     
@@ -112,7 +125,7 @@ $car_details = mysqli_fetch_assoc($car_result);
                                 <li>
                                     <span> Rent </span>
                                     <span class = "spec">
-                                        Rs: <?php echo $car_details['rent_per_day']?>/day
+                                    ₹ <?php echo (int) $car_details['rent_per_day']?>/day
                                     </span>
                                 </li>
                                 <li>
