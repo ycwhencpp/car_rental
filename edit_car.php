@@ -153,7 +153,7 @@ if (isset($_POST['submit'])) {
                                 <li>
                                     <span> Rent </span>
                                     <span class = "spec">
-                                    <input type="number" step="0.01" id="rent_per_day" name="rent_per_day" value="<?php echo $car['rent_per_day']; ?>" required>
+                                    <input type="number" step="0.01" id="rent_per_day" name="rent_per_day" value="<?php echo (int) $car['rent_per_day']; ?>" required>
                                     </span>
                                 </li>
                                 <li>

@@ -58,14 +58,14 @@ $agency_name=mysqli_fetch_assoc($agency_query_result);
       </div>
 
 
-    <header class="site-navbar site-navbar-target bg-primary" role="banner">
+    <header class="site-navbar site-navbar-target bg-light" role="banner" style="background-color: #e3f2fd !important;">
 
         <div class="container">
           <div class="row align-items-center position-relative">
 
             <div class="col-3 ">
               <div class="site-logo">
-                <a href="">CarRent</a>
+                <a href="" style="color: black;">CarRent</a>
               </div>
             </div>
 
@@ -101,7 +101,7 @@ $agency_name=mysqli_fetch_assoc($agency_query_result);
                           <span class="icon-star text-warning"></span>
                           <span class="icon-star text-warning"></span>
                         </div>
-                        <div class="rent-price"><span>Rs<?= htmlspecialchars($car['rent_per_day']) ?>/</span>day</div>
+                        <div class="rent-price"><span>₹<?= htmlspecialchars( (int) $car['rent_per_day']) ?>/</span>day</div>
                         </div>
                         <ul class="specs">
                           <li>

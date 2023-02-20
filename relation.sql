@@ -16,7 +16,7 @@ CREATE TABLE cars (
   seating_capacity INT(11) NOT NULL,
   rent_per_day DECIMAL(10, 2) NOT NULL,
   agency_id INT(11) NOT NULL,
-  image_url varchar(255),
+  image_url varchar(255) DEFAULT 'https://artsmidnorthcoast.com/wp-content/uploads/2014/05/no-image-available-icon-6.png',
   PRIMARY KEY (id),
   FOREIGN KEY (agency_id) REFERENCES users(id)
 );
