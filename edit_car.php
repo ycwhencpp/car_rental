@@ -25,6 +25,7 @@ $result = mysqli_query($conn, $query);
 
 if (!$result || mysqli_num_rows($result) == 0) {
   // Car not found or does not belong to current agency user
+  $_SESSION['error_msg'] ="car rented succesfully";
   header('Location: index.php');
   exit();
 }

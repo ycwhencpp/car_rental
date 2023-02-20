@@ -22,8 +22,12 @@ if(isset($_SESSION['email'])){
 if(isset($_SESSION['msg'])){
   $error =$_SESSION['msg'];
 }
+if(isset($_SESSION['error_msg'])){
+  $error_msg =$_SESSION['error_msg'];
+}
 
 unset($_SESSION['msg']);
+unset($_SESSION['error_msg']);
 $start_date = date('Y-m-d');
 $end_date = date('Y-m-d', strtotime('+30 days'));
 
@@ -100,6 +104,14 @@ $available_cars = $result->fetch_all(MYSQLI_ASSOC);
         <?php else: ?>
           <h2 class =" d-flex  justify-content-center  mb-5 pb-2 ">RENT CARS</h2>
         <?php endif; ?>
+                <?php if(!empty($error_msg)){ ?>
+            <div class="alert alert-danger d-flex justify-content-center mb-5 pb-2 " role="alert">
+              
+              <?php echo $error_msg; ?>
+              
+              
+              
+         <?php } ?>
           <div class="container-fluid m-2  "> 
             <div class=" d-flex justify-content-around  align-content-between flex-wrap ">
                 <?php foreach ($available_cars as $car): ?>

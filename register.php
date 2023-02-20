@@ -14,7 +14,7 @@ if($_SERVER["REQUEST_METHOD"] == "POST"){
     $password = mysqli_real_escape_string($conn, $_POST['password']);
     $type = mysqli_real_escape_string($conn,$_POST['type']);
 
-    if(!$name || $email || $password || $type){
+    if(!$name || !$email || !$password || !$type){
       $error = "Please provide details";
       
     }
